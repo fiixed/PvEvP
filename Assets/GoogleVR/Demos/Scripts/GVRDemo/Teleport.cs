@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 [RequireComponent(typeof(Collider))]
@@ -21,6 +22,7 @@ public class Teleport : MonoBehaviour {
 
   public Material inactiveMaterial;
   public Material gazedAtMaterial;
+	public GameObject player;
 
   void Start() {
     startingPosition = transform.localPosition;
@@ -45,4 +47,6 @@ public class Teleport : MonoBehaviour {
     float distance = 2 * Random.value + 1.5f;
     transform.localPosition = direction * distance;
   }
+
+	
 }
