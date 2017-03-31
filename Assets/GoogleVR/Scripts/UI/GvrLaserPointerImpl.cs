@@ -17,6 +17,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System;
 
 /// Implementation of GvrBasePointer for a laser pointer visual.
 /// This script should be attached to the controller object.
@@ -186,5 +187,7 @@ public class GvrLaserPointerImpl : GvrBasePointer {
     float alpha = GvrControllerVisual.AlphaValue;
     LaserLineRenderer.SetColors(Color.Lerp(Color.clear, LaserColor, alpha), Color.clear);
   }
+
+
 #endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
 }
