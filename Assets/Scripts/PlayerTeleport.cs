@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerTeleport : MonoBehaviour {
 
 	void Update() {
-		if (GvrController.ClickButtonUp) {
+		if (GvrController.AppButtonUp) {
 			GvrLaserPointerImpl laserPointerImpl = (GvrLaserPointerImpl)GvrPointerManager.Pointer;
 			if (laserPointerImpl.IsPointerIntersecting) {
 			
