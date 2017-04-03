@@ -8,7 +8,6 @@ public class PlayerTeleport : MonoBehaviour {
 		if (GvrController.AppButtonUp) {
 			GvrLaserPointerImpl laserPointerImpl = (GvrLaserPointerImpl)GvrPointerManager.Pointer;
 			if (laserPointerImpl.IsPointerIntersecting) {
-			
 				transform.position = new Vector3(laserPointerImpl.PointerIntersection.x, transform.position.y, laserPointerImpl.PointerIntersection.z);
 			}
 		}
