@@ -19,7 +19,7 @@ using UnityEngine.UI;
 // Manages the permission flow in PermissionsDemo.
 #if UNITY_ANDROID || UNITY_EDITOR
 public class PermissionsFlowManager : MonoBehaviour {
-  private static string[] permissionNames = { "android.permission.READ_EXTERNAL_STORAGE" };
+  private static string[] permissionNames = { "android.permission.RECORD_AUDIO" };
 
   public Text statusText;
 
@@ -50,7 +50,7 @@ public class PermissionsFlowManager : MonoBehaviour {
     if (!permissionRequester.IsPermissionGranted(permissionNames[0])) {
       Debug.Log("Permissions.RequestPermisions: Permission has not been previously granted");
       if (permissionRequester.ShouldShowRational(permissionNames[0])) {
-        statusText.text = "This game needs to access external storage.  Please grant permission when prompted.";
+        statusText.text = "This game needs to access to record audio.  Please grant permission when prompted.";
         statusText.color = Color.red;
       }
       permissionRequester.RequestPermissions(permissionNames,
@@ -67,7 +67,7 @@ public class PermissionsFlowManager : MonoBehaviour {
           });
     }
     else {
-      statusText.text = "ExternalStorage permission already granted!";
+      statusText.text = "Record Audio permission already granted!";
     }
   }
 }
