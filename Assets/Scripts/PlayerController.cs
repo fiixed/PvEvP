@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour {
 
 	// Handle Telelport UnityEvent
 	private void HandleTeleportEvent (Vector3 worldPos){
-		gameObject.transform.position = new Vector3(worldPos.x, gameObject.transform.position.y, worldPos.z);
+		float teleportDistance = Vector3.Distance(worldPos, transform.position);
+		if (teleportDistance <= 4.0f) {
+			gameObject.transform.position = new Vector3(worldPos.x, gameObject.transform.position.y, worldPos.z);
+		}
+		
 	}
 }
