@@ -13,23 +13,31 @@
 // limitations under the License.
 
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider))]
-public class Teleport : MonoBehaviour {
+public class Teleport : MonoBehaviour, IGvrGazeResponder {
   private Vector3 startingPosition;
 
   public Material inactiveMaterial;
   public Material gazedAtMaterial;
-	public GameObject player;
+  public GameObject player;
 
   void Start() {
     startingPosition = transform.localPosition;
     SetGazedAt(false);
   }
 
+  void LateUpdate() {
+    GvrViewer.Instance.UpdateState();
+    if (GvrViewer.Instance.BackButtonPressed) {
+      Application.Quit();
+    }
+  }
+
   public void SetGazedAt(bool gazedAt) {
+		Debug.Log ("SetGazedAt");
     if (inactiveMaterial != null && gazedAtMaterial != null) {
       GetComponent<Renderer>().material = gazedAt ? gazedAtMaterial : inactiveMaterial;
       return;
@@ -48,5 +56,31 @@ public class Teleport : MonoBehaviour {
     transform.localPosition = direction * distance;
   }
 
-	
+  public void TeleportTo(BaseEventData data ) {
+	 PointerEventData pointerData = data as PointerEventData;
+	 Vector3 worldPos = pointerData.pointerCurrentRaycast.worldPosition;
+	 Vector3 playerPos = new Vector3(worldPos.x, player.transform.position.y, worldPos.z);
+	 player.transform.position = playerPos;
+  }
+
+  #region IGvrGazeResponder implementation
+
+  /// Called when the user is looking on a GameObject with this script,
+  /// as long as it is set to an appropriate layer (see GvrGaze).
+  public void OnGazeEnter() {
+    SetGazedAt(true);
+  }
+
+  /// Called when the user stops looking on the GameObject, after OnGazeEnter
+  /// was already called.
+  public void OnGazeExit() {
+    SetGazedAt(false);
+  }
+
+  /// Called when the viewer's trigger is used, between OnGazeEnter and OnPointerExit.
+  public void OnGazeTrigger() {
+    TeleportRandomly();
+  }
+
+  #endregion
 }
