@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 	private void HandleTeleportEvent (Vector3 worldPos){
 		float teleportDistance = Vector3.Distance(worldPos, transform.position);
 		if (teleportDistance <= 4.0f) {
-			gameObject.transform.position = new Vector3(worldPos.x, gameObject.transform.position.y, worldPos.z);
+			gameObject.transform.position = new Vector3(worldPos.x, transform.position.y, worldPos.z);
 		}
 		
 	}
