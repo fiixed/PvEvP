@@ -11,13 +11,25 @@ public class RobotMovement : MonoBehaviour {
 	NavMeshAgent nav;
 
 	private void Awake() {
-		player = GameObject.FindGameObjectWithTag("Player").transform;
 		nav = GetComponent<NavMeshAgent>();
+	}
+
+	private void Start() {
+		InvokeRepeating("FindPlayer", 5.0f, 10.0f);
 	}
 
 
 	// Update is called once per frame
 	void Update () {
-		nav.SetDestination(player.position);
+		if (player) {
+			nav.SetDestination(player.position);
+		}
+	}
+
+	void FindPlayer() {
+		if (player == null) {
+			player = GameObject.FindGameObjectWithTag("Player").transform;
+		}
+		
 	}
 }
